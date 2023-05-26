@@ -1,6 +1,6 @@
 import {oAuth2Client} from "../../constants/oAuth2Client.js"
 
-export default function login (req,res){
+export default function getAuthUrl(req,res){
 
   const authURL = oAuth2Client.generateAuthUrl({
     access_type: 'offline',
