@@ -6,7 +6,8 @@ import { PORT } from './src/constants/vars.js'
 import getAuthUrlRoute from './src/routes/auth/get-auth-url.js'
 import session from "express-session"
 import callbackRoute from './src/routes/auth/callback.js'
-dotenv.config() 
+import sendMailsRoute from './src/routes/email/sendMails.js'
+dotenv.config({path: "./.env"}) 
 
 const app = express()
 
@@ -20,13 +21,13 @@ app.use(
 app.use(helmet())
 app.use(morgan('dev'))
 
+app.get('/email/send-mails', sendMailsRoute)
 app.get('/auth/get-url', getAuthUrlRoute)
 app.get('/auth/callback', callbackRoute)
 app.get('/see-tokens', (req, res) => {
-  console.log({session: req.session})
   return res.status(200).json({session: req.session})
 })
 
 app.listen(PORT, () => {
-  console.log(" > Express server listening on port: " + PORT);
+  console.log("> Express server listening on port: " + PORT);
 })
